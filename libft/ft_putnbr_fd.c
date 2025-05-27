@@ -6,37 +6,36 @@
 /*   By: jvila-va <jvila-va@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:28:27 by jvila-va          #+#    #+#             */
-/*   Updated: 2025/05/17 15:12:04 by jvila-va         ###   ########.fr       */
+/*   Updated: 2025/05/27 16:25:30 by jvila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 /*
-	Outputs the integer ’n’ to the specified file descriptor.
+	Outputs the integer ’n’ to the specified file descriptor and 
+	returns the number of printed characters.
 */
 
-void	ft_putnbr_fd(int n, int fd)
+int	ft_putnbr_fd(int n, int fd)
 {
 	char	c;
+	int		printed_c;
 
 	if (n == -2147483648)
 	{
 		write(fd, "-2147483648", 11);
-		return ;
+		return (11);
 	}
 	if (n < 0)
 	{
-		write(fd, "-", 1);
-		ft_putnbr_fd(-n, fd);
-		return ;
+		write(fd, "-", STDOUT_FILENO);
+		return (ft_putnbr_fd(-n, fd) + 1);
 	}
-	if (n < 10)
-	{
-		c = n + '0';
-		write(fd, &c, 1);
-		return ;
-	}
-	ft_putnbr_fd(n / 10, fd);
-	ft_putnbr_fd(n % 10, fd);
+	printed_c = 0;
+	if (n > 10)
+		printed_c += ft_putnbr_fd(n / 10, fd);
+	c = n % 10 + '0';
+	write(fd, &c, 1);
+	return (printed_c + 1);
 }
