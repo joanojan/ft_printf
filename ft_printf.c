@@ -6,82 +6,40 @@
 /*   By: jvila-va <jvila-va@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 09:31:39 by jvila-va          #+#    #+#             */
-/*   Updated: 2025/05/27 19:28:42 by jvila-va         ###   ########.fr       */
+/*   Updated: 2025/05/28 14:43:16 by jvila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdarg.h>
+#include "libftprintf.h"
 
 /* Increments the pointer and the counter by the printed chars */
 
-static void increments(const char **fmt, int *count, int printed)
+static void	increments(const char **fmt, int *count, int printed)
 {
 	*count += printed;
 	*fmt += 1;
 }
 
-/* prints the string or null and returns its length */
-
-int	print_string(va_list args)
+static int	handle_format_specifier(const char c, va_list args)
 {
-	char	*s;
+	int	printed;
 
-	s = va_arg(args, char *);
-	if (!s)
-	{
-		ft_putstr_fd("(null)", STDOUT_FILENO);
-		return (ft_strlen("(null)"));
-	}
-	ft_putstr_fd(s, STDOUT_FILENO);
-	return (ft_strlen(s));
-}
-
-/* prints the char */
-
-void	print_char(va_list args)
-{
-	char	c;
-
-	c = va_arg(args, int);
-	ft_putchar_fd(c, STDOUT_FILENO);
-}
-
-/* calls putnbr with the actual argument. 
-	putnbr returns the number of printed chars */
-
-int	print_int(va_list args)
-{
-	int	x;
-
-	x = va_arg(args, int);
-	return (ft_putnbr_fd(x, STDOUT_FILENO));
-}
-
-/* calls putuint with the actual argument. 
-	putuint returns the number the printed chars */
-
-int	print_uint(va_list args)
-{
-	unsigned int	x;
-
-	x = va_arg(args, unsigned int);
-	return (ft_putuint_fd(x, STDOUT_FILENO));
-}
-
-/* prints the memory address in hexadecimal 
-	appending 0x to the printed output 
-	and returns the number of printed chars */
-
-int	print_ptr(va_list args)
-{
-	void		*ptr;
-	uintptr_t	x;
-
-	ptr = va_arg(args, void *);
-	x = (uintptr_t)ptr;
-	ft_putstr_fd("0x", STDOUT_FILENO);
-	return (ft_puthex_fd(x, STDOUT_FILENO) + 2);
+	printed = 1;
+	if (c == '%')
+		ft_putchar_fd(c, STDOUT_FILENO);
+	if (c == 's')
+		printed = ft_print_va_str(args);
+	if (c == 'c')
+		ft_print_va_chr(args);
+	if (c == 'd' || c == 'i')
+		printed = ft_print_va_int(args);
+	if (c == 'u')
+		printed = ft_print_va_uint(args);
+	if (c == 'p')
+		printed = ft_print_va_ptr(args);
+	if (c == 'x' || c == 'X')
+		printed = ft_print_va_hex(args, c);
+	return (printed);
 }
 
 /*	write the output under the control of a format string  that specifies
@@ -98,29 +56,15 @@ int	ft_printf(const char *fmt, ...)
 	va_start(args, fmt);
 	while (*fmt)
 	{
+		printed = 1;
 		if (*fmt == '%')
 		{
 			fmt++;
-			printed = 1;
-			if (*fmt == '%')
-				ft_putchar_fd(*fmt, STDOUT_FILENO);
-			if (*fmt == 's')
-				printed = print_string(args);
-			if (*fmt == 'c')
-				print_char(args);
-			if (*fmt == 'd' || *fmt == 'i')
-				printed = print_int(args);
-			if (*fmt == 'u')
-				printed = print_uint(args);
-			if (*fmt == 'p')
-				printed = print_ptr(args);
-			increments(&fmt, &count, printed);
+			printed = handle_format_specifier(*fmt, args);
 		}
 		else
-		{
 			ft_putchar_fd(*fmt, STDOUT_FILENO);
-			increments(&fmt, &count, 1);
-		}
+		increments(&fmt, &count, printed);
 	}
 	va_end(args);
 	return (count);

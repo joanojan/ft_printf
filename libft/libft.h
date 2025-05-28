@@ -6,7 +6,7 @@
 /*   By: jvila-va <jvila-va@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 16:08:32 by jvila-va          #+#    #+#             */
-/*   Updated: 2025/05/27 19:33:55 by jvila-va         ###   ########.fr       */
+/*   Updated: 2025/05/28 11:20:02 by jvila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 int		ft_putuint_fd(unsigned int x, int fd);
-int		ft_puthex_fd(uintptr_t x, int fd);
+int		ft_putptr_fd(uintptr_t x, int fd);
+int		ft_puthex_fd(unsigned int x, char format, int fd);
 
 #endif

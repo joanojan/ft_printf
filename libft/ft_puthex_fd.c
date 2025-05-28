@@ -3,28 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   ft_puthex_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvila-va <jvila-va@student.42barcelona.co  +#+  +:+       +#+        */
+/*   By: jvila-va <jvila-va@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/27 17:56:17 by jvila-va          #+#    #+#             */
-/*   Updated: 2025/05/27 19:29:41 by jvila-va         ###   ########.fr       */
+/*   Created: 2025/05/28 11:20:52 by jvila-va          #+#    #+#             */
+/*   Updated: 2025/05/28 11:35:48 by jvila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/* print as hexadecimal */
+/* 	Prints to fd the unsigned int argument converted to unsigned hexadecimal.
+	If the format is x the radix is lowercase, uppercase otherwise ...
+	Returns the number of printed chars. */
 
-int	ft_puthex_fd(uintptr_t n, int fd)
+int	ft_puthex_fd(unsigned int x, char format, int fd)
 {
-	int	printed_c;
-	char			*radix;
-	char			c;
+	char	*lower_radix;
+	char	*upper_radix;
+	char	*radix;
+	int		printed_c;
+	char	c;
 
-	radix = "0123456789abcdef";
+	lower_radix = "0123456789abcdef";
+	upper_radix = "0123456789ABCDEF";
+	if (format == 'x')
+		radix = lower_radix;
+	else
+		radix = upper_radix;
 	printed_c = 0;
-	if (n > 15)
-		printed_c += ft_puthex_fd(n / 16, fd);
-	c = radix[n % 16];
+	if (x > 15)
+		printed_c += ft_puthex_fd(x / 16, format, fd);
+	c = radix[x % 16];
 	write(fd, &c, 1);
 	return (printed_c + 1);
 }

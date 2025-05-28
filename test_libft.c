@@ -43,11 +43,11 @@ int	main(void)
 	result = ft_printf("%c$\n", 'x');
 	printf("result = %d\n", result);
 	/* Test 6. print char passing NULL */
-	printf("Test 6:\nresult = printf(\"-%%c-\\n\", NULL);\n");
-	result = printf("-%c-\n", NULL);
+	printf("Test 6:\nresult = printf(\"<%%c>\\n\", NULL);\n");
+	result = printf("<%c>\n", NULL);
 	printf("result = %d\n", result);
-	printf("result = ft_printf(\"-%%c-\\n\", NULL);\n");
-	result = ft_printf("-%c-\n", NULL);
+	printf("result = ft_printf(\"<%%c>\\n\", NULL);\n");
+	result = ft_printf("<%c>\n", NULL);
 	printf("result = %d\n", result);
 	/* Test 7. print integer values */
 	printf("Test 7:\nresult = printf(\"%%d\\n\", INT_MIN);\n");
@@ -77,7 +77,15 @@ int	main(void)
 	printf("result = ft_printf(\"%%p\\n\", &result);\n");
 	result = ft_printf("%p\n", &result);
 	printf("result = %d\n", result);
-
-
+	/* Test 11. print hexadecimal values */
+	unsigned int x = 274348;
+	printf("Test 11.1: int x = 274348; result = printf(\"%%x\\n\", x);\n");
+	result = printf("%x\n", x);
+	printf("result = ft_printf(\"%%x\\n\", x);\n");
+	result = ft_printf("%x\n", x);
+	printf("Test 11.2: result = printf(\"%%X\\n\", x);\n");
+	result = printf("%X\n", x);
+	printf("result = ft_printf(\"%%X\\n\", x);\n");
+	result = ft_printf("%X\n", x);
 	return 0;
 }

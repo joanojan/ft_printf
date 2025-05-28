@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libftprintf.h                                      :+:      :+:    :+:   */
+/*   ft_print_va_chr.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvila-va <jvila-va@student.42barcelona.co  +#+  +:+       +#+        */
+/*   By: jvila-va <jvila-va@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/26 15:23:11 by jvila-va          #+#    #+#             */
-/*   Updated: 2025/05/26 15:32:45 by jvila-va         ###   ########.fr       */
+/*   Created: 2025/05/28 13:56:28 by jvila-va          #+#    #+#             */
+/*   Updated: 2025/05/28 14:02:36 by jvila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libftprintf.h"
 
-typedef struct s_fmt_specifier
+/* Print the char from the variadic argument list to STDOUT */
+
+void	ft_print_va_chr(va_list args)
 {
-	char	specifier;
-}	t_fmt_specifier;
+	char	c;
 
-int	ft_printf(const char *, ...);
+	c = va_arg(args, int);
+	ft_putchar_fd(c, STDOUT_FILENO);
+}
