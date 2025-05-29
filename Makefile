@@ -1,33 +1,42 @@
-CC 					:= cc
-CFLAGS 				:= -Wall -Wextra -Werror
-NAME 				:= libftprintf.a 
+NAME 		:= libftprintf.a 
+CC 			:= cc
+CFLAGS 		:= -Wall -Wextra -Werror
 
-INCLUDES			:= -I. -I./libft
+LIBFT_DIR	:= libft/
+LIBFT		:= $(LIBFT_DIR)/libft.a
 
-SRCS = 	ft_printf.c ft_print_va_str.c ft_print_va_chr.c		\
-		ft_print_va_int.c ft_print_va_uint.c				\
-		ft_print_va_ptr.c ft_print_va_hex.c
+INCLUDES	:= -I. -I$(LIBFT_DIR)
 
-OBJS = $(SRCS:.c=.o)
+SRCS :=	\
+		ft_printf.c			\
+		ft_print_va_str.c	\
+		ft_print_va_chr.c	\
+		ft_print_va_int.c	\
+		ft_print_va_uint.c	\
+		ft_print_va_ptr.c	\
+		ft_print_va_hex.c
 
-all: $(NAME)
+OBJS := $(SRCS:.c=.o)
+
+all: $(LIBFT) $(NAME)
 
 $(NAME): $(OBJS)
-	$(MAKE) -C ./libft
-	cp libft/libft.a $(NAME)
-	ar rcs $(NAME) $(OBJS)
+	ar rcs $@ $^
+
+$(LIBFT):
+	$(MAKE) -C $(LIBFT_DIR)
 
 %.o : %.c ft_printf.h Makefile 
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@	
 
 clean:
 	$(MAKE) clean -C ./libft
-	rm -rf $(OBJS)
+	rm -f $(OBJS)
 
 fclean: clean
 	$(MAKE) fclean -C ./libft
-	$(RM) $(NAME)
+	rm -f $(NAME)
 
 re: fclean all
 
-PHONY: all clean fclean re
+.PHONY: all clean fclean re
