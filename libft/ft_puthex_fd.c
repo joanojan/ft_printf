@@ -6,7 +6,7 @@
 /*   By: jvila-va <jvila-va@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 11:20:52 by jvila-va          #+#    #+#             */
-/*   Updated: 2025/05/28 11:35:48 by jvila-va         ###   ########.fr       */
+/*   Updated: 2025/05/29 11:56:25 by jvila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,13 @@
 
 int	ft_puthex_fd(unsigned int x, char format, int fd)
 {
-	char	*lower_radix;
-	char	*upper_radix;
 	char	*radix;
 	int		printed_c;
 	char	c;
 
-	lower_radix = "0123456789abcdef";
-	upper_radix = "0123456789ABCDEF";
+	radix = "0123456789ABCDEF";
 	if (format == 'x')
-		radix = lower_radix;
-	else
-		radix = upper_radix;
+		radix = "0123456789abcdef";
 	printed_c = 0;
 	if (x > 15)
 		printed_c += ft_puthex_fd(x / 16, format, fd);

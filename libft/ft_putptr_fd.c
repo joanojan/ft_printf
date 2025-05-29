@@ -6,7 +6,7 @@
 /*   By: jvila-va <jvila-va@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 17:56:17 by jvila-va          #+#    #+#             */
-/*   Updated: 2025/05/28 12:26:21 by jvila-va         ###   ########.fr       */
+/*   Updated: 2025/05/29 11:36:13 by jvila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,3 +28,9 @@ int	ft_putptr_fd(uintptr_t n, int fd)
 	write(fd, &c, 1);
 	return (printed_c + 1);
 }
+/*
+int	main(void)
+{
+	ft_putptr_fd(0, 1);
+	return (0);
+}*/

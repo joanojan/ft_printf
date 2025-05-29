@@ -6,11 +6,11 @@
 /*   By: jvila-va <jvila-va@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 09:31:39 by jvila-va          #+#    #+#             */
-/*   Updated: 2025/05/28 14:43:16 by jvila-va         ###   ########.fr       */
+/*   Updated: 2025/05/29 10:45:05 by jvila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
 /* Increments the pointer and the counter by the printed chars */
 

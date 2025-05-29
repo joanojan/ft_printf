@@ -6,7 +6,7 @@
 /*   By: jvila-va <jvila-va@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:28:27 by jvila-va          #+#    #+#             */
-/*   Updated: 2025/05/27 16:25:30 by jvila-va         ###   ########.fr       */
+/*   Updated: 2025/05/29 11:28:48 by jvila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ int	ft_putnbr_fd(int n, int fd)
 		return (ft_putnbr_fd(-n, fd) + 1);
 	}
 	printed_c = 0;
-	if (n > 10)
+	if (n > 9)
 		printed_c += ft_putnbr_fd(n / 10, fd);
 	c = n % 10 + '0';
-	write(fd, &c, 1);
+	ft_putchar_fd(c, fd);
 	return (printed_c + 1);
 }
